@@ -150,4 +150,12 @@ class GraphImplTest {
             fail("Exception must be IncorrectDistanceException");
         }
     }
+
+    @Test
+    public void testCorrectCalculateGraphFromFile() {
+        graph = graph.fromFile("graph.txt");
+
+        assertEquals(graph.calculateShortestDistance("nodeA", "nodeG"), 19);
+        assertEquals(graph.calculateShortestPath("nodeA", "nodeC"), Set.of("nodeA", "nodeC", "nodeE", "nodeG"));
+    }
 }
