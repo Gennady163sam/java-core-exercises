@@ -18,7 +18,7 @@
         <module>declarative-sum-of-squares</module>
         <module>crazy-lambdas</module>
         <module>crazy-optionals</module>
-        <module>dijkstra-algorythm</module>
+        <module>dijkstra-algorithm</module>
     </modules>
     <packaging>pom</packaging>
 
