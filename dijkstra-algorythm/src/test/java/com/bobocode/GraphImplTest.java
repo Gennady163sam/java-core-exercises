@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GraphImplTest {
+    public static final String NODE_NOT_FOUND_MSG_PREFIX = "Cannot find Node with name=%s";
     private Graph graph = new GraphImpl();
 
     @Test
@@ -84,9 +85,10 @@ class GraphImplTest {
         try {
             graph.calculateShortestDistance("nodeA", "nodeF");
             fail("Should throw exception");
+        } catch (NodeNotFoundException e) {
+            assertEquals(String.format(NODE_NOT_FOUND_MSG_PREFIX, "nodeA"), e.getMessage());
         } catch (Exception e) {
-            assertTrue(e instanceof NodeNotFoundException);
-            assertEquals(String.format("Cannot find Node with name=%s", "nodeA"), e.getMessage());
+            fail("Exception must be NodeNotFoundException");
         }
     }
 
@@ -95,9 +97,10 @@ class GraphImplTest {
         try {
             graph.calculateShortestPath("nodeA", "nodeF");
             fail("Should throw exception");
+        } catch (NodeNotFoundException e) {
+            assertEquals(String.format(NODE_NOT_FOUND_MSG_PREFIX, "nodeA"), e.getMessage());
         } catch (Exception e) {
-            assertTrue(e instanceof NodeNotFoundException);
-            assertEquals(String.format("Cannot find Node with name=%s", "nodeA"), e.getMessage());
+            fail("Exception must be NodeNotFoundException");
         }
     }
 
@@ -126,9 +129,10 @@ class GraphImplTest {
         try {
             graph.addDestination("nodeA", "nodeB", -1);
             fail("Should throw exception");
+        } catch (NodeNotFoundException e) {
+            assertEquals(String.format(NODE_NOT_FOUND_MSG_PREFIX, "nodeA"), e.getMessage());
         } catch (Exception e) {
-            assertTrue(e instanceof NodeNotFoundException);
-            assertEquals(String.format("Cannot find Node with name=%s", "nodeA"), e.getMessage());
+            fail("Exception must be NodeNotFoundException");
         }
     }
 
@@ -140,8 +144,10 @@ class GraphImplTest {
         try {
             graph.addDestination("nodeA", "nodeB", -1);
             fail("Should throw exception");
+        } catch (IncorrectDistanceException e) {
+            // Correct situation
         } catch (Exception e) {
-            assertTrue(e instanceof IncorrectDistanceException);
+            fail("Exception must be IncorrectDistanceException");
         }
     }
 }
