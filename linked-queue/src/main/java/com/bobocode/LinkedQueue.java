@@ -8,6 +8,9 @@ package com.bobocode;
  * @param <T> a generic parameter
  */
 public class LinkedQueue<T> implements Queue<T> {
+    private int size = 0;
+    private Node<T> head;
+    private Node<T> tale;
 
     /**
      * Adds an element to the end of the queue.
@@ -15,7 +18,14 @@ public class LinkedQueue<T> implements Queue<T> {
      * @param element the element to add
      */
     public void add(T element) {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        if (isEmpty()) {
+            head = new Node<>(element);
+            tale = head;
+        } else {
+            tale.next = new Node<>(element);
+            tale = tale.next;
+        }
+        size++;
     }
 
     /**
@@ -24,7 +34,13 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return an element that was retrieved from the head or null if queue is empty
      */
     public T poll() {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        if (isEmpty()) {
+            return null;
+        }
+        T value = head.value;
+        head = head.next;
+        size--;
+        return value;
     }
 
     /**
@@ -33,7 +49,7 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return an integer value that is a size of queue
      */
     public int size() {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        return size;
     }
 
     /**
@@ -42,6 +58,15 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return {@code true} if the queue is empty, returns {@code false} if it's not
      */
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        return size == 0;
+    }
+
+    private class Node<V> {
+        private Node<V> next;
+        private V value;
+
+        Node(V value) {
+            this.value = value;
+        }
     }
 }
